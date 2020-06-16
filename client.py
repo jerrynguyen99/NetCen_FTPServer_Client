@@ -32,7 +32,6 @@ FTP_HOST = 'demo.wftpserver.com'
 FTP_PORT = 21
 FTP_USER = 'demo-user'
 FTP_PWDS = 'demo-user'
-FILE_NAME = 'download'
 FTP_UPLOAD = 'upload'
 FTP_DOWNLOAD = 'download'
 DIR_DOWNLOAD = 'download'
@@ -64,7 +63,10 @@ def showMenu():
 
 def showSession(session):
     print('****************************************** Sesssion *******************************************')
-    print("this is session")
+    print('Host: ' + FTP_HOST)
+    print('Port: ' + str(FTP_PORT))
+    print('User: ' + FTP_USER)
+    print('Password: ' + FTP_PWDS)
 
 
 def welcome(session):
@@ -86,7 +88,7 @@ def welcome(session):
         if choosenIndex == 4:
             bye(session)
             return
-        
+
 
 def connect(user, password, host, port):
     server = FTP()
@@ -126,6 +128,26 @@ def sendFile(session):
     while (choosenFileIndex > i-1):
         choosenFileIndex = int(
             input('Please input correct index: ').split()[0])
+    print('**** Start uploading ****')
+    print("YOUR CHOICE: " + files[choosenFileIndex])
+    sys.stdout.write("[%s]" % (" " * toolbar_width))  # set up progressbar
+    sys.stdout.flush()
+    # return to start of line, after '['
+    sys.stdout.write("\b" * (toolbar_width+1))
+    for i in range(toolbar_width):
+        # set up path to upload file here
+        dir = os.path.join(DIR_UPLOAD, files[choosenFileIndex])
+        # print(dir)
+        fhandle = open(dir, 'rb')
+        session.storbinary(
+            'STOR ' + dir, fhandle)
+        fhandle.close()
+        # update the bar
+        sys.stdout.write(u"\u2588")
+        sys.stdout.flush()
+    print('\n**** Upload finished ****')
+
+
     # dir = os.path.join(FTP_UPLOAD, filename)
     # print(dir)
     # file = open(filename, "rb")
