@@ -4,8 +4,17 @@ import sys
 
 toolbar_width = 40
 
+# Exception raised when an error or invalid response is received
+class Error(Exception): pass
+class error_reply(Error): pass          # unexpected [123]xx reply
+class error_temp(Error): pass           # 4xx errors
+class error_perm(Error): pass           # 5xx errors
+class error_proto(Error): pass          # response does not begin with [1-5]
+
+HOST = 'localhost'
+PORT = 2121
 server = FTP()
-server.connect('localhost', 6969)
+server.connect(HOST,PORT)
 if (server.login('user', 'password') == '230 Login successful.'):  #connect successfully
     files = []
     try:

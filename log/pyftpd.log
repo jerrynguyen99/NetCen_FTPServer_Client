@@ -1,0 +1,24 @@
+INFO:pyftpdlib:concurrency model: async
+INFO:pyftpdlib:masquerade (NAT) address: None
+INFO:pyftpdlib:passive ports: 3000->3009
+DEBUG:pyftpdlib:poller: 'pyftpdlib.ioloop.Select'
+DEBUG:pyftpdlib:authorizer: 'pyftpdlib.authorizers.DummyAuthorizer'
+DEBUG:pyftpdlib:handler: 'pyftpdlib.handlers.type'
+DEBUG:pyftpdlib:max connections: 256
+DEBUG:pyftpdlib:max connections per ip: 5
+DEBUG:pyftpdlib:timeout: 300
+DEBUG:pyftpdlib:banner: '!~~ pyftpdlib based ftpd ready. Welcome ~~!'
+DEBUG:pyftpdlib:max login attempts: 3
+INFO:pyftpdlib:>>> starting FTP server on 0.0.0.0:21, pid=6028 <<<
+INFO:pyftpdlib:concurrency model: async
+INFO:pyftpdlib:masquerade (NAT) address: None
+INFO:pyftpdlib:passive ports: 3000->3009
+DEBUG:pyftpdlib:poller: 'pyftpdlib.ioloop.Select'
+DEBUG:pyftpdlib:authorizer: 'pyftpdlib.authorizers.DummyAuthorizer'
+DEBUG:pyftpdlib:handler: 'pyftpdlib.handlers.type'
+DEBUG:pyftpdlib:max connections: 256
+DEBUG:pyftpdlib:max connections per ip: 5
+DEBUG:pyftpdlib:timeout: 300
+DEBUG:pyftpdlib:banner: '!~~ pyftpdlib based ftpd ready. Welcome ~~!'
+DEBUG:pyftpdlib:max login attempts: 3
+INFO:pyftpdlib:>>> starting FTP server on 0.0.0.0:6969, pid=7256 <<<
