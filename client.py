@@ -28,11 +28,11 @@ class error_proto(Error):
     pass                                # response does not begin with [1-5]
 
 
-FTP_HOST = 'demo.wftpserver.com'
+FTP_HOST = ''
 FTP_PORT = 21
 FTP_USER = 'demo-user'
 FTP_PWDS = 'demo-user'
-FTP_UPLOAD = 'upload'
+FTP_UPLOAD = ''
 FTP_DOWNLOAD = 'download'
 DIR_DOWNLOAD = 'download'
 DIR_UPLOAD = 'upload'
@@ -63,6 +63,7 @@ def showMenu():
 
 def showSession(session):
     print('****************************************** Sesssion *******************************************')
+    global FTP_HOST, FTP_PORT, FTP_USER, FTP_PWDS
     print('Host: ' + FTP_HOST)
     print('Port: ' + str(FTP_PORT))
     print('User: ' + FTP_USER)
@@ -94,6 +95,11 @@ def connect(user, password, host, port):
     server = FTP()
     server.connect(host, port)
     state = server.login(user, password)
+    global FTP_HOST, FTP_PORT, FTP_USER, FTP_PWDS
+    FTP_HOST = host
+    FTP_PORT = port
+    FTP_USER = user
+    FTP_PWDS = password
     msg = '230 User ' + user + ' logged in.'
     if (state == msg):  # connect successfully
         return server
@@ -140,7 +146,7 @@ def sendFile(session):
         # print(dir)
         fhandle = open(dir, 'rb')
         session.storbinary(
-            'STOR ' + dir, fhandle)
+            'STOR ' + FTP_UPLOAD, fhandle)
         fhandle.close()
         # update the bar
         sys.stdout.write(u"\u2588")
@@ -181,7 +187,7 @@ def recvFile(session):
     sys.stdout.write("[%s]" % (" " * toolbar_width))  # set up progressbar
     sys.stdout.flush()
     # return to start of line, after '['
-    sys.stdout.write("\b" * (toolbar_width+1))
+    sys.std4out.write("\b" * (toolbar_width+1))
     for i in range(toolbar_width):
         # set up path to download file here
         dir = os.path.join(DIR_DOWNLOAD, files[choosenFileIndex])
@@ -201,12 +207,12 @@ def main():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
     parser.add_argument(
-        '--user', default=FTP_USER,
+        '--user', default='demo-user',
         help="Username for FTP access")
-    parser.add_argument('--password', default=FTP_PWDS,
+    parser.add_argument('--password', default='demo-user',
                         help="Password for FTP user.")
-    parser.add_argument('--host', default=FTP_HOST)
-    parser.add_argument('--port', type=int, default=FTP_PORT)
+    parser.add_argument('--host', default='demo.wftpserver.com')
+    parser.add_argument('--port', type=int, default=21)
 
     args = parser.parse_args()
     session = connect(**vars(args))
